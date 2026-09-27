@@ -1,5 +1,15 @@
 import streamlit as st
 from rag import answer_question
+from ingest import get_active_knowledge_base_path
+
+kb_path = get_active_knowledge_base_path()
+using_sample_data = kb_path == "sample_docs"
+
+if using_sample_data:
+    st.info(
+        "📂 Currently using **sample CS fundamentals content** for this demo. "
+        "Clone the repo and drop your own files into `my_knowledge_base/` to use your personal documents."
+    )
 
 st.set_page_config(page_title="Personal AI Knowledge Assistant", page_icon="🧠")
 

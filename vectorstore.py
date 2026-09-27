@@ -55,7 +55,10 @@ def query_vector_store(query, persist_directory="chroma_db", n_results=3):
     return results
 
 if __name__ == "__main__":
-    build_vector_store("my_knowledge_base")
+    from ingest import get_active_knowledge_base_path
+    kb_path = get_active_knowledge_base_path()
+    print(f"Building vector store from: {kb_path}")
+    build_vector_store(kb_path)
 
     # quick test query
     test_query = "What is Artificial Intelligence?"

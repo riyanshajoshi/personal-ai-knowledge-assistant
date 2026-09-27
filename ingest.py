@@ -25,6 +25,12 @@ def load_text(filepath):
     with open(filepath, "r", encoding="utf-8") as f:
         return f.read()
 
+def get_active_knowledge_base_path(primary="my_knowledge_base", fallback="sample_docs"):
+    """Use the user's personal knowledge base if it has files; otherwise fall back to sample docs."""
+    if os.path.exists(primary) and len(os.listdir(primary)) > 0:
+        return primary
+    return fallback
+
 def load_documents(folder_path):
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
