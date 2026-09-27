@@ -3,7 +3,6 @@ from pypdf import PdfReader
 from pptx import Presentation
 
 def load_pdf(filepath):
-    """Extract all text from a PDF file."""
     reader = PdfReader(filepath)
     text = ""
     for page in reader.pages:
@@ -11,7 +10,6 @@ def load_pdf(filepath):
     return text
 
 def load_pptx(filepath):
-    """Extract all text from a PowerPoint file."""
     prs = Presentation(filepath)
     text = ""
     for slide in prs.slides:
@@ -24,12 +22,15 @@ def load_pptx(filepath):
     return text
 
 def load_text(filepath):
-    """Read a plain text or markdown file."""
     with open(filepath, "r", encoding="utf-8") as f:
         return f.read()
 
 def load_documents(folder_path):
-    """Walk a folder and load all supported files into a list of {source, text} dicts."""
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+        print(f"Created '{folder_path}' folder — add your PDF, PPTX, TXT, or MD files there and re-run.")
+        return []
+
     documents = []
     for filename in os.listdir(folder_path):
         filepath = os.path.join(folder_path, filename)
@@ -40,8 +41,12 @@ def load_documents(folder_path):
         elif filename.lower().endswith((".txt", ".md")):
             text = load_text(filepath)
         else:
-            continue  # skip unsupported files
+            continue
         documents.append({"source": filename, "text": text})
+
+    if not documents:
+        print(f"No supported files found in '{folder_path}'. Add .pdf, .pptx, .txt, or .md files and re-run.")
+
     return documents
 
 if __name__ == "__main__":

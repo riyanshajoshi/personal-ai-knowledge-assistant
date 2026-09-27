@@ -5,7 +5,9 @@ st.set_page_config(page_title="Personal AI Knowledge Assistant", page_icon="🧠
 
 st.title("🧠 Personal AI Knowledge Assistant")
 st.caption("Ask questions about your own notes and documents.")
-
+if st.button("🗑️ Clear conversation"):
+    st.session_state.messages = []
+    st.rerun()
 # Keep chat history across interactions
 if "messages" not in st.session_state:
     st.session_state.messages = []
