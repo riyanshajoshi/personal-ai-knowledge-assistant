@@ -1,5 +1,7 @@
 # 🧠 Personal AI Knowledge Assistant
 
+🔗 **[Try the live demo](https://personal-ai-knowledge-assistant-wub39unimxgemyyr6h24ng.streamlit.app/)** — runs on sample CS fundamentals content; clone the repo to use it with your own documents
+
 A conversational RAG (Retrieval-Augmented Generation) system that lets you chat with your own notes and documents — PDFs, PowerPoints, and text/markdown files — instead of manually searching through them.
 
 Ask a question in plain English, and the assistant retrieves the most relevant passages from your knowledge base and generates a grounded, source-attributed answer using Google's Gemini API.
