@@ -1,13 +1,20 @@
 import os
 import time
-from dotenv import load_dotenv
+import streamlit as st
 from google import genai
 from google.genai.errors import ServerError
 from vectorstore import query_vector_store
 
-load_dotenv()
+def get_api_key():
+    # Try Streamlit Cloud secrets first, fall back to local .env
+    try:
+        return st.secrets["GEMINI_API_KEY"]
+    except (FileNotFoundError, KeyError):
+        from dotenv import load_dotenv
+        load_dotenv()
+        return os.getenv("GEMINI_API_KEY")
 
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+client = genai.Client(api_key=get_api_key())
 MODEL_NAME = "gemini-3.8-flash"
 
 def call_gemini_with_retry(prompt, max_retries=4):
